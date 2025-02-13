@@ -1,0 +1,63 @@
+/* Vlastní styly pro plánovač */
+.shift-select {
+    width: 100%;
+    padding: 2px;
+    font-size: 0.875rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+}
+
+.weekend {
+    background-color: #fffde7 !important;
+}
+
+.shift-cell {
+    padding: 2px !important;
+    width: 50px;
+}
+
+.employee-name {
+    font-weight: 500;
+    padding: 8px;
+    min-width: 150px;
+}
+
+/* Barvy pro typy služeb */
+.shift-R { background-color: rgb(173,216,230); }
+.shift-O { background-color: rgb(144,238,144); }
+.shift-L { background-color: rgb(255,182,193); }
+.shift-IP { background-color: rgb(255,218,185); }
+.shift-RO { background-color: rgb(221,160,221); }
+.shift-NSK { background-color: rgb(255,255,153); }
+.shift-CH { background-color: rgb(255,160,122); }
+.shift-V { background-color: rgb(211,211,211); }
+.shift-N { background-color: rgb(176,196,222); }
+.shift-S { background-color: rgb(152,251,152); }
+.shift-D { background-color: rgb(240,230,140); }
+.shift-IV { background-color: rgb(230,230,250); }
+.shift-SK { background-color: rgb(255,228,196); }
+
+/* Styly pro statistiky */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.stats-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Responzivní úpravy */
+@media (max-width: 768px) {
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+}
