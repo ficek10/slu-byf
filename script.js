@@ -336,51 +336,55 @@ function calculateStats() {
     updateStatsDisplay(stats);
 }
 
-// Export do Wordu
 function exportToWord() {
-   const header = `
-      <html xmlns:o='urn:schemas-microsoft-com:office:office' 
-            xmlns:w='urn:schemas-microsoft-com:office:word' 
-            xmlns='http://www.w3.org/TR/REC-html40'>
-      <head>
-        <meta charset='utf-8'>
-        <title>Rozpis služeb</title>
-        <style>
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          th, td {
-            border: 1px solid black;
-            padding: 4px;
-            text-align: center;
-          }
-          th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-          }
-          .weekend {
-            background-color: #ffffd0;
-          }
-          @page {
-            size: landscape;
-            mso-page-orientation: landscape;
-          }
-          body {
-            font-family: Tahoma;
-          }
-        </style>
-      </head>
-      <body>
+    const header = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+              xmlns:w='urn:schemas-microsoft-com:office:word' 
+              xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+            <meta charset='utf-8'>
+            <title>Rozpis služeb</title>
+            <style>
+                @page {
+                    size: landscape;
+                    mso-page-orientation: landscape;
+                    margin: 1cm;
+                }
+                body {
+                    font-family: 'Arial', sans-serif;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 9pt;
+                }
+                th, td {
+                    border: 1px solid black;
+                    padding: 2px;
+                    text-align: center;
+                }
+                th {
+                    background-color: #f0f0f0;
+                    font-weight: bold;
+                }
+                .weekend {
+                    background-color: #ffffd0;
+                }
+                h1 {
+                    text-align: center;
+                    font-size: 14pt;
+                    margin-bottom: 10px;
+                }
+            </style>
+        </head>
+        <body>
     `;
 
     let content = `
-      <h1 style="text-align: center">
-        ${new Date(currentYear, currentMonth - 1).toLocaleString('cs', { month: 'long' })} ${currentYear}
-      </h1>
-      <table>
-        <tr>
-          <th>Jméno</th>
+        <h1>Rozpis služeb - ${new Date(currentYear, currentMonth - 1).toLocaleString('cs', { month: 'long' })} ${currentYear}</h1>
+        <table>
+            <tr>
+                <th style="width: 120px;">Jméno</th>
     `;
 
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
@@ -393,10 +397,11 @@ function exportToWord() {
 
     // Přidání dat zaměstnanců
     Object.keys(employees).forEach(employee => {
-        content += `<tr><td>${employee}</td>`;
+        content += `<tr><td style="text-align: left; padding-left: 5px;">${employee}</td>`;
         for (let day = 1; day <= daysInMonth; day++) {
             const shift = shifts[`${employee}-${day}`] || '';
-            const style = shift ? `background-color: ${shiftTypes[shift].color}` : '';
+            const style = shift ? `background-color: ${shiftTypes[shift].color}` : 
+                                isWeekend(day) ? 'background-color: #ffffd0' : '';
             content += `<td style="${style}">${shift}</td>`;
         }
         content += '</tr>';
@@ -404,37 +409,9 @@ function exportToWord() {
 
     content += '</table>';
 
-    // Přidání statistik
-    const stats = calculateExportStats();
-    content += `
-      <h2>Statistiky služeb</h2>
-      <table style="margin-top: 20px">
-        <tr>
-          <th>Jméno</th>
-          <th>Celkem hodin</th>
-          <th>Fond</th>
-          <th>Přesčas</th>
-          <th>Víkendové hodiny</th>
-        </tr>
-    `;
-
-    Object.entries(stats).forEach(([name, stat]) => {
-        content += `
-          <tr>
-            <td>${name}</td>
-            <td>${stat.totalHours.toFixed(1)}</td>
-            <td>${stat.fundHours.toFixed(1)}</td>
-            <td>${stat.overtime.toFixed(1)}</td>
-            <td>${stat.weekendHours.toFixed(1)}</td>
-          </tr>
-        `;
-    });
-
-    content += '</table>';
-
     const footer = `
-      </body>
-      </html>
+        </body>
+        </html>
     `;
 
     const blob = new Blob([header + content + footer], { type: 'application/msword' });
