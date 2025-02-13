@@ -1,7 +1,6 @@
 // Konfigurace a data
 const employees = {
     "Vaněčková Dana": { maxNights: 0, maxRO: 0, canNights: false, minFreeWeekends: 2, specialRules: true },
-    "Dráb Filip": { maxNights: 0, maxRO: 4, canNights: false, minFreeWeekends: 2 },
     "Kolářová Hana": { maxNights: 0, maxRO: 4, canNights: false, minFreeWeekends: 2 },
     "Vrkoslavová Irena": { maxNights: 5, maxRO: 4, canNights: true, minFreeWeekends: 1 },
     "Králová Martina": { maxNights: 2, maxRO: 1, canNights: true, minFreeWeekends: 2 },
@@ -9,7 +8,8 @@ const employees = {
     "Drab David": { maxNights: 5, maxRO: 1, canNights: true, minFreeWeekends: 2 },
     "Vaňková Vladěna": { maxNights: 5, maxRO: 4, canNights: true, minFreeWeekends: 2 },
     "Dianová Kristýna": { maxNights: 5, maxRO: 1, canNights: true, minFreeWeekends: 2 },
-    "Šáchová Kateřina": { maxNights: 5, maxRO: 4, canNights: true, minFreeWeekends: 2 }
+    "Šáchová Kateřina": { maxNights: 5, maxRO: 4, canNights: true, minFreeWeekends: 2 },
+      "Dráb Filip": { maxNights: 0, maxRO: 4, canNights: false, minFreeWeekends: 2 }
 };
 
 const shiftTypes = {
